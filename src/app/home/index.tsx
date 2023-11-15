@@ -10,7 +10,7 @@ export const Home: FC = () => {
 
   const { data: counterValue } = useCounterValue(contractHash !== '' ? { contractHash } : null);
 
-  const { mutateAsync: increase, isLoading: sending } = useIncreaseCounterValue();
+  const { mutateAsync: increase, isLoading: increasing } = useIncreaseCounterValue();
 
   const handleIncrease = async () => {
     if (contractHash !== '') {
@@ -34,10 +34,10 @@ export const Home: FC = () => {
           onChange={event => setContractHash(event.target.value)}
         />
         <div className="flex items-center">
-          <div>Counter Value:</div>
+          <div>Counter value:</div>
           <div className="ml-[10px]">{counterValue}</div>
         </div>
-        <Button className="self-start" type="primary" loading={sending} onClick={handleIncrease}>
+        <Button className="self-start" type="primary" loading={increasing} onClick={handleIncrease}>
           Increment
         </Button>
       </div>
