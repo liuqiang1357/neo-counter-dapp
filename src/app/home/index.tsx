@@ -1,20 +1,24 @@
 import { Input } from 'antd';
 import { FC, useState } from 'react';
+import { useSnapshot } from 'valtio';
 import { Button } from 'app/_shared/Button';
 import { useCounterValue, useIncreaseCounterValue } from 'hooks/counter';
+import { web3State } from 'states/web3';
 import { Networks } from './Networks';
 import { Wallets } from './Wallets';
 
 export const Home: FC = () => {
   const [contractHash, setContractHash] = useState('');
 
+  const { address } = useSnapshot(web3State);
+
   const { data: counterValue } = useCounterValue(contractHash !== '' ? { contractHash } : null);
 
   const { mutateAsync: increase, isLoading: increasing } = useIncreaseCounterValue();
 
   const handleIncrease = async () => {
-    if (contractHash !== '') {
-      await increase({ contractHash });
+    if (address != null && contractHash !== '') {
+      await increase({ contractHash, address });
     }
   };
 
