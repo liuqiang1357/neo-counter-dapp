@@ -22,7 +22,7 @@ export interface IncreaseCounterValueParams {
 }
 
 export async function increaseCounterValue(params: IncreaseCounterValueParams): Promise<string> {
-  const { connector } = await ensureWalletReady();
+  const { connector } = await ensureWalletReady({ networkId: params.networkId });
   const transactionHash = await connector.invoke({
     scriptHash: params.contractHash,
     operation: 'increment',
